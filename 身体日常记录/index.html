@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#167864">
+  <meta name="description" content="记录吃饭、喝水、排便、体重与喝酒，离线管理身体日常。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="身体日常记录">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+  <title>身体日常记录</title>
+</head>
+<body>
+  <header class="top"><a href="./" class="brand"><span class="brand-icon">日</span><span>身体日常记录<small>好好记录，慢慢了解自己</small></span></a><span id="offline-state" role="status">正在准备离线使用</span></header>
+  <main>
+    <div class="page-heading"><div><p id="today-label" class="eyebrow"></p><h1>今天的身体日常</h1></div><button id="export" class="secondary">导出 CSV</button></div>
+    <div id="storage-error" class="warning" role="alert" hidden></div>
+    <section class="summary" aria-label="今日汇总">
+      <article class="summary-card energy"><span>今日摄入</span><p><strong id="today-calories">0</strong> 千卡</p><small id="calorie-detail">食物 0 · 酒类 0</small></article>
+      <article class="summary-card water"><span>今日喝水</span><p><strong id="today-water">0</strong> ml</p><small>仅统计饮水记录</small></article>
+      <article class="summary-card alcohol"><span>今日喝酒</span><p><strong id="today-alcohol">0</strong> ml</p><small id="alcohol-detail">酒类热量 0 千卡</small></article>
+    </section>
+    <nav class="view-nav" aria-label="页面切换"><button data-view="daily" aria-pressed="true">日常记录</button><button data-view="stats" aria-pressed="false">近 7 天统计</button></nav>
+    <section id="daily" class="daily-layout">
+      <section class="panel entry-panel"><div class="section-heading"><h2>记一笔</h2><span class="muted">留意身体的小变化</span></div>
+        <div class="type-tabs" role="group" aria-label="记录类型">
+          <button data-type="food" aria-pressed="true">吃饭</button><button data-type="water" aria-pressed="false">喝水</button><button data-type="bowel" aria-pressed="false">排便</button><button data-type="weight" aria-pressed="false">体重</button><button data-type="alcohol" aria-pressed="false">喝酒</button>
+        </div>
+        <form id="record-form"><label>记录时间<input id="record-time" name="time" type="datetime-local" required></label><div id="type-fields"></div><label>备注 <span class="muted">（选填）</span><textarea name="note" rows="2" maxlength="1000" placeholder="还有什么想记下的？"></textarea></label><button type="submit" class="primary" id="save-record">保存吃饭记录</button></form>
+      </section>
+      <section class="records-panel"><div class="section-heading"><h2>记录列表</h2><span id="record-count" class="muted">0 条记录</span></div><div id="record-list"></div></section>
+    </section>
+    <section id="stats" hidden>
+      <div class="section-heading"><h2>最近 7 天</h2><span id="stats-range" class="muted"></span></div>
+      <div class="chart-grid"><article class="panel"><h3>摄入热量 <small>千卡 · 含酒类</small></h3><div id="calorie-chart"></div></article><article class="panel"><h3>喝水量 <small>ml</small></h3><div id="water-chart"></div></article><article class="panel"><h3>排便次数 <small>次</small></h3><div id="bowel-chart"></div></article><article class="panel"><h3>体重趋势 <small>kg · 当日最后一次</small></h3><div id="weight-chart"></div></article></div>
+      <div class="panel table-panel"><h3>每日明细</h3><div class="table-scroll"><table><caption class="sr-only">最近七天的全部汇总，摄入热量已包含酒类</caption><thead><tr><th>日期</th><th>总热量<br>千卡</th><th>喝水<br>ml</th><th>排便<br>次</th><th>体重<br>kg</th><th>喝酒<br>ml</th><th>酒类热量<br>千卡</th></tr></thead><tbody id="stats-table"></tbody></table></div></div>
+    </section>
+    <details class="help"><summary>安装、离线与数据说明</summary><p>iPhone：用 Safari 打开本站，点分享 → 添加到主屏幕；若出现“作为网页 App 打开”，请开启。以后从桌面图标进入。</p><p>首次联网打开并等待“离线已就绪”，之后断网也可使用。数据只保存在当前浏览器 / 桌面 App，不会上传或自动同步。清除网站数据、换设备或系统回收存储可能丢失记录，请定期导出 CSV。CSV 用于备份查看，本版不提供导入。</p><p>食物和酒类热量均为估算值；包装标签优先。酒类包含酒精及碳水估算，喝酒量不会计入喝水量。</p><button id="install" class="secondary" hidden>安装到桌面</button></details>
+  </main>
+  <footer>身体日常记录 · 数据留在你的设备</footer>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body></html>

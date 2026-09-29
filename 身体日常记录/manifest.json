@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "身体日常记录",
+  "short_name": "身体日常",
+  "description": "离线记录吃饭、喝水、排便、体重与喝酒",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "background_color": "#f4f7f8",
+  "theme_color": "#167864",
+  "icons": [
+    {"src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
